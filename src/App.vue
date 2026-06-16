@@ -1,10 +1,8 @@
 <template>
   <div id="app">
-    <div class="header">
-      <h1>BMI Application</h1>
-      <p>Vue CLI Version</p>
-    </div>
 
+    <AppHeader />
+    
     <div class="layout">
       <div class="sidebar">
         <h3>Menu</h3>
@@ -67,10 +65,11 @@
 </template>
 
 <script>
+import AppHeader from './components/AppHeader.vue'
 export default {
   name : 'App',
   components: {
-    
+    AppHeader
   },
   data() {
     return {
