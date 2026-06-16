@@ -2,7 +2,7 @@
   <div id="app">
 
     <AppHeader />
-    
+
     <div class="layout">
       <div class="sidebar">
         <h3>Menu</h3>
@@ -57,19 +57,18 @@
         </div>
       </div>
     </div>
-
-    <div class="footer">
-      <p>© 2026 BMI App | Web Technology Course</p>
-    </div>
+    <AppFooter />
   </div>
 </template>
 
 <script>
 import AppHeader from './components/AppHeader.vue'
+import AppFooter from './components/AppFooter.vue'
 export default {
   name : 'App',
   components: {
-    AppHeader
+    AppHeader,
+    AppFooter
   },
   data() {
     return {
