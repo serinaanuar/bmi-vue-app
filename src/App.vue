@@ -8,33 +8,16 @@
       <AppSidebar />
 
       <div class="main-content">
-        <h2>BMI Calculator</h2>
+        <AddPersonView @add-person="addPerson" />
 
-        <PersonForm @add-person="addPerson" />
-
-        <h2>Last Added Person</h2>
-        <PersonCard
-          v-if="lastPerson"
-          :person="lastPerson"
+        <LastPersonView
+          :lastPerson="lastPerson"
         />
 
-        <EmptyState
-          v-else
-          message="No person added yet."
+        <PersonListView
+          :persons="persons"
+          @delete-person="deletePerson"
         />
-
-        <h2>Person List</h2>
-        <ul v-if="persons.length > 0">
-          <li v-for="(p, index) in persons" :key="index">
-            <PersonCard :person="p" />
-          </li>
-        </ul>
-
-        <EmptyState
-          v-else
-          message="No person in the list yet."
-        />
-        
       </div>
     </div>
     <AppFooter />
@@ -45,18 +28,19 @@
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
 import AppSidebar from './components/AppSidebar.vue'
-import PersonForm from './components/PersonForm.vue'
-import PersonCard from './components/PersonCard.vue'
-import EmptyState from './components/EmptyState.vue'
+
+import AddPersonView from './views/AddPersonView.vue'
+import LastPersonView from './views/LastPersonView.vue'
+import PersonListView from './views/PersonListView.vue'
 export default {
   name : 'App',
   components: {
-    AppHeader,
-    AppFooter,
-    AppSidebar,
-    PersonForm,
-    PersonCard,
-    EmptyState
+  AppHeader,
+  AppFooter,
+  AppSidebar,
+  AddPersonView,
+  LastPersonView,
+  PersonListView
   },
   data() {
     return {
@@ -158,6 +142,30 @@ button:hover {
   padding: 10px;
   background-color: #eee;
   margin-bottom: 20px;
+}
+
+.person-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.person-info {
+  flex: 1;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-btn:hover {
+  background: darkred;
 }
 
 ul {
