@@ -117,3 +117,23 @@ https://cli.vuejs.org/config/
 ## Author
 
 Developed as part of the **SECJ3483 Web Technology** coursework to demonstrate Vue.js fundamentals, form handling, event handling, conditional rendering, and list rendering.
+
+1. What improved after refactoring?
+
+After refactoring, the application became more modular and organized. Each part of the UI was separated into reusable components and views, making the code easier to maintain, debug, and scale. The App.vue file is now cleaner and only manages shared state.
+
+2. Why should data be passed using props instead of direct access?
+
+Props ensure a one-way data flow from parent to child, which makes the application more predictable and easier to debug. It prevents child components from directly modifying parent data, reducing unexpected side effects and improving maintainability.
+
+3. Why should a child component use emit to send data to a parent component?
+
+Because in Vue, data should flow upward using events. emit allows the child component to communicate changes or actions to the parent without directly modifying parent state. This keeps components loosely coupled and improves reusability.
+
+4. Which component is the most reusable in this application? Explain.
+
+The most reusable component is PersonCard. It only depends on a person prop and can be used in both the list view and last person display. It is flexible and does not depend on application logic, making it easy to reuse anywhere.
+
+5. What is the difference between components and views in this lab?
+
+Components are small, reusable UI building blocks (e.g., PersonCard, PersonForm). Views are larger page-level structures that combine multiple components (e.g., AddPersonView, PersonListView). Views manage layout and composition, while components focus on specific functionality.
