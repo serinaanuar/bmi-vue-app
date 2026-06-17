@@ -32,40 +32,44 @@ import AppSidebar from './components/AppSidebar.vue'
 import AddPersonView from './views/AddPersonView.vue'
 import LastPersonView from './views/LastPersonView.vue'
 import PersonListView from './views/PersonListView.vue'
+
 export default {
-  name : 'App',
+  name: 'App',
+
   components: {
-  AppHeader,
-  AppFooter,
-  AppSidebar,
-  AddPersonView,
-  LastPersonView,
-  PersonListView
+    AppHeader,
+    AppFooter,
+    AppSidebar,
+    AddPersonView,
+    LastPersonView,
+    PersonListView
   },
+
   data() {
     return {
-      persons: [],
-      lastPerson: null
-    };
+      persons: []
+    }
+  },
+
+  computed: {
+    lastPerson() {
+      if (this.persons.length === 0) {
+        return null
+      }
+      return this.persons[this.persons.length - 1]
+    }
   },
 
   methods: {
     addPerson(person) {
-    this.persons.push(person);
-    this.lastPerson = person;
-  },
+      this.persons.push(person)
+    },
 
     deletePerson(index) {
-      this.persons.splice(index, 1);
-
-      if (this.persons.length > 0) {
-        this.lastPerson = this.persons[this.persons.length - 1];
-      } else {
-        this.lastPerson = null;
-      }
+      this.persons.splice(index, 1)
     }
   }
-};
+}
 </script>
 
 <style>
@@ -171,13 +175,6 @@ button:hover {
 ul {
   list-style-type: none;
   padding: 0;
-}
-
-li {
-  padding: 10px;
-  background-color: #fff;
-  margin-bottom: 10px;
-  border: 1px solid #ddd;
 }
 
 .footer {
