@@ -1,28 +1,36 @@
 <template>
-	<div class="single">
-		<div v-if="lastPerson">
-			Name: {{ lastPerson.name }},
-			Age: {{ lastPerson.age }},
-			Weight: {{ lastPerson.weight }} kg,
-			Height: {{ lastPerson.height }} cm,
-			BMI: {{ lastPerson.bmi }},
-			Category: {{ lastPerson.category }}
-		</div>
-		<div v-else>
-			No person added yet.
-		</div>
-	</div>
+  <div>
+    <h2>Last Added Person</h2>
+
+    <PersonCard
+      v-if="lastPerson"
+      :person="lastPerson"
+    />
+
+    <EmptyState
+      v-else
+      message="No person added yet."
+    />
+  </div>
 </template>
 
 <script>
+import PersonCard from '../components/PersonCard.vue'
+import EmptyState from '../components/EmptyState.vue'
+
 export default {
-	name: 'LastPersonView',
-	props: {
-		lastPerson: {
-			type: Object,
-			default: null
-		}
-	}
+  name: 'LastPersonView',
+
+  components: {
+    PersonCard,
+    EmptyState
+  },
+
+  props: {
+    lastPerson: {
+      type: Object,
+      default: null
+    }
+  }
 }
 </script>
-

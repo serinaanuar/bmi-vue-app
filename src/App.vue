@@ -10,14 +10,9 @@
       <div class="main-content">
         <AddPersonView @add-person="addPerson" />
 
-        <LastPersonView
-          :lastPerson="lastPerson"
-        />
+        <LastPersonView :lastPerson="lastPerson" />
 
-        <PersonListView
-          :persons="persons"
-          @delete-person="deletePerson"
-        />
+        <PersonListView :persons="persons" @delete-person="deletePerson" />
       </div>
     </div>
     <AppFooter />
