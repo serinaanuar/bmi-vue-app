@@ -27,10 +27,7 @@ export default {
   },
 
   props: {
-    lastPerson: {
-      type: Object,
-      default: null
-    }
+  lastPerson: Object
   }
 }
 </script>

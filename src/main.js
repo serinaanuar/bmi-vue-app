@@ -1,6 +1,6 @@
 import { createApp } from "vue";
-
 import App from './App.vue';
 
-const app = createApp(App);
-app.mount('#app');
+import './assets/style.css';
+
+createApp(App).mount('#app');
