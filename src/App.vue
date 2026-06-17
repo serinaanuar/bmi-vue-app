@@ -4,57 +4,20 @@
     <AppHeader />
 
     <div class="layout">
-      <div class="sidebar">
-        <h3>Menu</h3>
-        <ul class="side-menu">
-          <li><a href="#" class="menu-link active">Add Person</a></li>
-          <li><a href="#" class="menu-link">Last Added</a></li>
-          <li><a href="#" class="menu-link">Person List</a></li>
-        </ul>
-      </div>
+
+      <AppSidebar />
 
       <div class="main-content">
-        <h2>BMI Calculator</h2>
+        <AddPersonView @add-person="addPerson" />
 
-        <form @submit.prevent="addPerson">
-          <input type="text" v-model="name" placeholder="Name" required>
-          <input type="number" v-model.number="yob" placeholder="Year of Birth" required>
-          <input type="number" v-model.number="weight" placeholder="Weight (kg)" required>
-          <input type="number" v-model.number="height" placeholder="Height (cm)" required>
-          <button type="submit">Add Person</button>
-        </form>
+        <LastPersonView
+          :lastPerson="lastPerson"
+        />
 
-        <h2>Last Added Person</h2>
-        <div class="single">
-          <span v-if="lastPerson">
-            Name: {{ lastPerson.name }},
-            Age: {{ lastPerson.age }},
-            Weight: {{ lastPerson.weight }} kg,
-            Height: {{ lastPerson.height }} cm,
-            BMI: {{ lastPerson.bmi }},
-            Category: {{ lastPerson.category }}
-          </span>
-          <span v-else>
-            No person added yet.
-          </span>
-        </div>
-
-        <h2>Person List</h2>
-        <ul v-if="persons.length > 0">
-          <li v-for="(p, index) in persons" :key="index">
-            {{ index + 1 }}.
-            Name: {{ p.name }},
-            Age: {{ p.age }},
-            Weight: {{ p.weight }} kg,
-            Height: {{ p.height }} cm,
-            BMI: <strong>{{ p.bmi }}</strong>,
-            Category: {{ p.category }}
-            <button @click="deletePerson(index)">Delete</button>
-          </li>
-        </ul>
-        <div v-else class="single">
-          No person in the list yet.
-        </div>
+        <PersonListView
+          :persons="persons"
+          @delete-person="deletePerson"
+        />
       </div>
     </div>
     <AppFooter />
@@ -64,62 +27,33 @@
 <script>
 import AppHeader from './components/AppHeader.vue'
 import AppFooter from './components/AppFooter.vue'
+import AppSidebar from './components/AppSidebar.vue'
+
+import AddPersonView from './views/AddPersonView.vue'
+import LastPersonView from './views/LastPersonView.vue'
+import PersonListView from './views/PersonListView.vue'
 export default {
   name : 'App',
   components: {
-    AppHeader,
-    AppFooter
+  AppHeader,
+  AppFooter,
+  AppSidebar,
+  AddPersonView,
+  LastPersonView,
+  PersonListView
   },
   data() {
     return {
-      name: '',
-      yob: '',
-      weight: '',
-      height: '',
       persons: [],
       lastPerson: null
     };
   },
 
   methods: {
-    addPerson() {
-      const yob = parseInt(this.yob);
-      const weight = parseFloat(this.weight);
-      const height = parseFloat(this.height);
-
-      const year = new Date().getFullYear();
-      const age = year - yob;
-
-      const bmiValue = weight / ((height / 100) ** 2);
-      const bmi = bmiValue.toFixed(2);
-
-      let category = '';
-      if (bmiValue < 18.5) {
-        category = 'Underweight';
-      } else if (bmiValue < 25) {
-        category = 'Normal';
-      } else {
-        category = 'Overweight';
-      }
-
-      const person = {
-        name: this.name,
-        yob: yob,
-        age: age,
-        weight: weight,
-        height: height,
-        bmi: bmi,
-        category: category
-      };
-
-      this.persons.push(person);
-      this.lastPerson = person;
-
-      this.name = '';
-      this.yob = '';
-      this.weight = '';
-      this.height = '';
-    },
+    addPerson(person) {
+    this.persons.push(person);
+    this.lastPerson = person;
+  },
 
     deletePerson(index) {
       this.persons.splice(index, 1);
@@ -208,6 +142,30 @@ button:hover {
   padding: 10px;
   background-color: #eee;
   margin-bottom: 20px;
+}
+
+.person-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.person-info {
+  flex: 1;
+}
+
+.delete-btn {
+  background: red;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-btn:hover {
+  background: darkred;
 }
 
 ul {
